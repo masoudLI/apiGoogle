@@ -258,7 +258,7 @@ before-commit: qa-cs-fixer qa-phpstan qa-security-checker qa-phpcpd qa-lint-twig
 first-install: docker-up composer-install npm-install npm-build sf-perm sf-dc sf-dmm sf-start sf-open ## First install.
 .PHONY: first-install
 
-start: docker-up sf-start sf-open ## Start project.
+start: sf-start sf-open ## Start project.
 .PHONY: start
 
 stop: docker-stop sf-stop ## Stop project.
