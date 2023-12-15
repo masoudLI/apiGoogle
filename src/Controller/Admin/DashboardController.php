@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Auteur;
 use App\Entity\Book;
+use App\Entity\Invitation;
 use App\Entity\Publisher;
 use App\Entity\Status;
 use App\Entity\User;
@@ -49,6 +50,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Books', 'fas fa-book', Book::class);
+        yield MenuItem::linkToCrud('Invitation', 'fas fa-book', Invitation::class);
         yield MenuItem::linkToCrud('Auteurs', 'fas fa-pen', Auteur::class);
         yield MenuItem::linkToCrud('Status', 'fas fa-circle', Status::class);
         yield MenuItem::linkToCrud('Publisher', 'fas fa-building', Publisher::class);

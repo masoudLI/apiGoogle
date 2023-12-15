@@ -6,6 +6,7 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -20,15 +21,18 @@ class UserCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('pseudo'),
-            EmailField::new('email'),
-            AssociationField::new('userBooks')
-                ->onlyOnIndex(),
-            ArrayField::new('userBooks')
-                ->onlyOnDetail(),
-
-        ];
+        $roles = ['ROLE_ADMIN', 'ROLE_USER'];
+        yield IdField::new('id');
+        yield TextField::new('pseudo');
+        yield EmailField::new('email');
+        yield ChoiceField::new('roles')
+            ->hideWhenUpdating()
+            ->setChoices(array_combine($roles, $roles))
+            ->allowMultipleChoices()
+            ->renderExpanded();
+        yield AssociationField::new('userBooks')
+        ->onlyOnIndex();
+        yield ArrayField::new('userBooks')
+        ->onlyOnDetail();
     }
 }
