@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="bg-gray-900">
+		<main>
+			{% include 'home/_hero.html.twig' %}
+			{% include 'home/_feature.html.twig' %}
+			{% include 'home/_stat.html.twig' %}
+			{% include 'home/_cta.html.twig' %}
+		</main>
+
+		{% include 'home/_footer.html.twig' %}
+	</div>
+
+
+{% endblock %}
+
