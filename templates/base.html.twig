@@ -12,12 +12,10 @@
         <meta name="theme-color" content="#ffffff">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
             {{ ux_controller_link_tags() }}
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
         {% endblock %}
 
         {% block importmap %}
@@ -25,6 +23,8 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container pt-5">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>

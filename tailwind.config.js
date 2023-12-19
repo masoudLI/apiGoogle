@@ -5,7 +5,11 @@ module.exports = {
     "./templates/**/*.html.twig",
   ],
   theme: {
-    extend: {},
+    extend: {
+    },
+    container: {
+      center: true
+    }
   },
   plugins: [
     require('@tailwindcss/forms'),
