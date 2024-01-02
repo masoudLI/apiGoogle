@@ -9,6 +9,7 @@ DOCKER = docker
 DOCKER_RUN = $(DOCKER) run
 DOCKER_COMPOSE = docker compose
 DOCKER_COMPOSE_UP = $(DOCKER_COMPOSE) up -d
+DOCKER_COMPOSE_BUILD = $(DOCKER_COMPOSE) build
 DOCKER_COMPOSE_STOP = $(DOCKER_COMPOSE) stop
 #------------#
 
@@ -59,6 +60,10 @@ help: ## Show this help.
 docker-up: ## Start docker containers.
 	$(DOCKER_COMPOSE_UP)
 .PHONY: docker-up
+
+docker-build: ## Start docker containers.
+	$(DOCKER_COMPOSE_BUILD)
+.PHONY: docker-build
 
 docker-stop: ## Stop docker containers.
 	$(DOCKER_COMPOSE_STOP)
@@ -258,7 +263,7 @@ before-commit: qa-cs-fixer qa-phpstan qa-security-checker qa-phpcpd qa-lint-twig
 first-install: docker-up composer-install npm-install npm-build sf-perm sf-dc sf-dmm sf-start sf-open ## First install.
 .PHONY: first-install
 
-start: sf-start sf-open ## Start project.
+start: docker-up sf-start sf-open ## Start project.
 .PHONY: start
 
 stop: docker-stop sf-stop ## Stop project.
