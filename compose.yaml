@@ -5,13 +5,27 @@ services:
       context: ./tools/php
     container_name: web
     ports:
-      - "8000:8000"
+      - "8000:80"
     volumes:
       - ./:/var/www
       - ./apache.conf:/etc/apache2/sites-enabled/000-default.conf
     restart: always
     networks:
       - symfony_app
+    links:
+      - php
+  php:
+    restart: unless-stopped
+    image: grafikart/php:php8.2-2
+    volumes:
+      - .:/var/www:delegated
+    depends_on:
+      - db
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
+      APP_ENV: dev
+      MAILER_DSN: smtp://mail:1025?encryption=null&auth_mode=null
+      DATABASE_URL: "mysql://massoud:massoud@db:3306/googleapi?serverVersion=8.0.32&charset=utf8mb4"
   db:
     image: mysql:8.0.32
     command: --default-authentication-plugin=mysql_native_password
@@ -23,7 +37,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - 3306:3306
+      - "3306:3306"
     networks:
       - symfony_app
   adminer:
@@ -31,6 +45,8 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    depends_on:
+      - db
     networks:
       - symfony_app
 volumes:
